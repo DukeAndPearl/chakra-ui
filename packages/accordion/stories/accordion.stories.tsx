@@ -135,3 +135,37 @@ export const stylingExpanded = () => (
     </AccordionItem>
   </Accordion>
 )
+
+const Fruit = ({ name }) => {
+  return (
+    <chakra.div>
+      <AccordionItem>
+        <AccordionButton>
+          <chakra.div flex="1" textAlign="left">
+            {name}
+          </chakra.div>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel>A {name} lives here</AccordionPanel>
+      </AccordionItem>
+    </chakra.div>
+  )
+}
+
+export function MappedMultiple() {
+  const [allowMultiple, setAllowMultiple] = React.useState(true)
+  const fruits = [{ name: "Apple" }, { name: "Orange" }, { name: "Banana" }]
+
+  return (
+    <div>
+      <button onClick={() => setAllowMultiple((allow) => !allow)}>
+        Set "allowMultiple" to {allowMultiple ? "false" : "true"}
+      </button>
+      <Accordion allowMultiple={allowMultiple} defaultIndex={[0]}>
+        {fruits.map((item) => (
+          <Fruit key={item.name} name={item.name} />
+        ))}
+      </Accordion>
+    </div>
+  )
+}
